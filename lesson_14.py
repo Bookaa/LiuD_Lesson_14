@@ -343,35 +343,40 @@ def make_func2(liul):
     f.block.addstmt_Return(fn)
     return f
 
-def test1():
-    liul = LiuL()
-    make_func1(liul)
-    make_func2(liul)
-    make_func3(liul)
-    f = liul.getvar('func1')
-    result = liul.run(f, [5,7])
-    print result.val
+import unittest
+class Test(unittest.TestCase):
+    def test1(self):
+        liul = LiuL()
+        make_func1(liul)
+        make_func2(liul)
+        make_func3(liul)
+        f = liul.getvar('func1')
+        result = liul.run(f, [5,7])
+        print result.val
 
-    f = liul.getvar('func3')
-    liul.run(f, [])
+        f = liul.getvar('func3')
+        result = liul.run(f, [])
+        self.assertEqual(result.val, 32)
+        #print 'ja', result.val == 32
 
-    '''
-def func2():
-    fn = dynamic create function fn just like func1
-    return fn
+        '''
+    def func2():
+        fn = dynamic create function fn just like func1
+        return fn
 
-def func3():
-    fn3 = func2()
-    print fn3(8,9)
-    return fn3(10,9)
+    def func3():
+        fn3 = func2()
+        print fn3(8,9)
+        return fn3(10,9)
 
-def func1(b1, b2):
-    i = 3
-    j = i + 2
-    print i+j*2, b2
-    return 55
-    '''
+    def func1(b1, b2):
+        i = 3
+        j = i + 2
+        print i+j*2, b2
+        return 55
+        '''
 
 if __name__ == '__main__':
-    test1()
+    the = Test(methodName='test1')
+    the.test1()
     print 'good'
